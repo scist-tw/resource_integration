@@ -41,6 +41,7 @@ jobs:
           npm i -g hexo-generator-search --save
           npm i -g hexo-generator-searchdb --save
           npm i
+          npm audit fix
       - name: Generate files
         run: |
           cd webpage/
