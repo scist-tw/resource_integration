@@ -136,3 +136,5 @@ feed:
 search:
 	path: search.xml
   field: all
+  format: html
+  limit: 100
