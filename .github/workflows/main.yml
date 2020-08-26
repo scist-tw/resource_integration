@@ -37,9 +37,13 @@ jobs:
           npm i -g hexo-math --save
           npm i -g hexo-deployer-git --save
           npm i -g hexo-excerpt --save
+          npm i -g hexo-generator-feed --save
           npm i
-      - name: Deploy hexo
+      - name: Generate files
         run: |
           cd webpage/
           hexo g
+      - name: Deploy hexo
+        run: |
+          cd webpage/
           hexo d

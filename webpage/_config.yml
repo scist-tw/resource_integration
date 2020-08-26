@@ -9,7 +9,7 @@ description: '這是SCIST的學習資源整合網站，包含資安、演算法�
 keywords: SCIST, 學習資源整合網站, 演算法, 資安
 author: SCIST
 language: zh-TW
-timezone: ''
+timezone: 'Asia/Taipei'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -48,7 +48,7 @@ highlight:
   enable: true
   line_number: true
   auto_detect: false
-  tab_replace: ''
+  tab_replace: '  '
   wrap: true
   hljs: false
 prismjs:
@@ -119,3 +119,15 @@ excerpt:
   excerpt_excludes: []
   more_excludes: []
   hideWholePostExcerpts: true
+#RSS
+plugin:
+- hexo-generator-feed
+#Feed Atom
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit:
+  content_linit_delim: ' '

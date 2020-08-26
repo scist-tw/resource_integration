@@ -74,6 +74,15 @@
   </div>
 {%- endif %}
 
+{%- if theme.rss %}
+  <div class="feed-link motion-element">
+    <a href="{{ url_for(theme.rss.path) }}" rel="alternate">
+      <i class="fa fa-rss-square"></i>
+      RSS
+    </a>
+  </div>
+{%- endif %}
+
 {%- if theme.social %}
   <div class="links-of-author motion-element">
     {%- for name, link in theme.social %}
