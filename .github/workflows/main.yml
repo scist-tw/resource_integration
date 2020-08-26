@@ -45,6 +45,7 @@ jobs:
       - name: Generate files
         run: |
           cd webpage/
+          hexo cl
           hexo g
       - name: Deploy hexo
         run: |
