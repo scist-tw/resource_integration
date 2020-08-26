@@ -131,3 +131,8 @@ feed:
   content:
   content_limit:
   content_linit_delim: ' '
+
+#search
+search:
+	path: search.xml
+  field: all

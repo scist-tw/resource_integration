@@ -118,8 +118,8 @@ darkmode: false
 menu:
   #home: / || fa fa-home
   about: about|| fa fa-address-card
-  tags: tags|| fa fa-tags
-  categories: categories|| fa fa-th
+  #tags: tags|| fa fa-tags
+  #categories: categories|| fa fa-th
   科普知識: Scientific-knowledge || fa fa-flask
   課程講義: Course-notes || fa fa-sticky-note
   課程影片: Course-videos || fa fa-video
@@ -745,7 +745,7 @@ algolia_search:
 # Local Search
 # Dependencies: https://github.com/theme-next/hexo-generator-searchdb
 local_search:
-  enable: false
+  enable: true
   # If auto, trigger search by changing input.
   # If manual, trigger search by pressing enter key or search button.
   trigger: auto
