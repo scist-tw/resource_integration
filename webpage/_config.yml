@@ -135,6 +135,6 @@ feed:
 #search
 search:
 	path: search.xml
-  field: all
+  field: post
   format: html
   limit: 100
