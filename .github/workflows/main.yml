@@ -26,7 +26,6 @@ jobs:
         run: |
           mkdir -p ~/.ssh/
           echo "$HEXO_DEPLOY_PRI" | tr -d '\r' > ~/.ssh/id_rsa
-          echo "$HEXO_DEPLOY_PRI"
           chmod 700 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.name "Koios1143"
