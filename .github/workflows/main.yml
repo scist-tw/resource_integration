@@ -38,6 +38,7 @@ jobs:
           npm i -g hexo-deployer-git --save
           npm i -g hexo-excerpt --save
           npm i -g hexo-generator-feed --save
+          npm i -g hexo-generator-search --save
           npm i -g hexo-generator-searchdb --save
           npm i
       - name: Generate files
