@@ -1,5 +1,5 @@
 ---
-title: Scientific knowledge
-date: 2020-08-24 22:54:06
-type: Scientific knowledge
+layout: Scientific-knowledge
+title: Scientific-knowledge
+date: 2020-09-15 23:00:00
 ---
