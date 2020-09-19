@@ -14,7 +14,7 @@ timezone: 'Asia/Taipei'
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://scist-tw.github.io/
-root: /resource_integration/
+root: /blog/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -110,7 +110,7 @@ theme: next
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: 'git'
-  repo: git@github.com:scist-tw/resource_integration.git
+  repo: git@github.com:scist-tw/blog.git
   branch: gh-pages
 
 # MathJax
