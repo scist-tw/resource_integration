@@ -121,9 +121,9 @@ menu:
   #tags: tags|| fa fa-tags
   #categories: categories|| fa fa-th
   科普知識: Scientific-knowledge || fa fa-flask
-  課程講義: Course-notes || fa fa-sticky-note
+  #課程講義: Course-notes || fa fa-sticky-note
   課程影片: Course-videos || fa fa-video
-  程式語言: Programming-languages || fa fa-language
+  #程式語言: Programming-languages || fa fa-language
   演算法: Algorithm || fa fa-terminal
   資訊安全: Information-security || fa fa-shield-alt
   #archives: archives/ || fa fa-archive

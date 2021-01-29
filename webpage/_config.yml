@@ -70,9 +70,9 @@ index_generator:
 default_category: uncategorized
 category_map:
   科普知識: Scientific-knowledge
-  課程講義: Course-notes
+  # 課程講義: Course-notes
   課程影片: Course-videos
-  程式語言: Programming-languages
+  # 程式語言: Programming-languages
   演算法: Algorithm
   資訊安全: Information-security
 tag_map:
