@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"scist-tw.github.io","root":"/blog/","scheme":"Pisces","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="這是SCIST的學習資源整合網站，包含資安、演算法、程式語言、科普知識">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SCIST Blog">
+<meta property="og:url" content="https://scist-tw.github.io/index.html">
+<meta property="og:site_name" content="SCIST Blog">
+<meta property="og:description" content="這是SCIST的學習資源整合網站，包含資安、演算法、程式語言、科普知識">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:author" content="SCIST">
+<meta property="article:tag" content="SCIST, 學習資源整合網站, 演算法, 資安">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://scist-tw.github.io/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>SCIST Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/blog/atom.xml" title="SCIST Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">SCIST Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about" rel="section"><i class="fa fa-address-card fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-科普知識">
+
+    <a href="/blog/Scientific-knowledge" rel="section"><i class="fa fa-flask fa-fw"></i>科普知識</a>
+
+  </li>
+        <li class="menu-item menu-item-課程影片">
+
+    <a href="/blog/Course-videos" rel="section"><i class="fa fa-video fa-fw"></i>課程影片</a>
+
+  </li>
+        <li class="menu-item menu-item-演算法">
+
+    <a href="/blog/Algorithm" rel="section"><i class="fa fa-terminal fa-fw"></i>演算法</a>
+
+  </li>
+        <li class="menu-item menu-item-資訊安全">
+
+    <a href="/blog/Information-security" rel="section"><i class="fa fa-shield-alt fa-fw"></i>資訊安全</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SCIST"
+      src="/blog/images/SCIST_logo.png">
+  <p class="site-author-name" itemprop="name">SCIST</p>
+  <div class="site-description" itemprop="description">這是SCIST的學習資源整合網站，包含資安、演算法、程式語言、科普知識</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分類</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/blog/atom.xml" rel="alternate">
+      <i class="fa fa-rss-square"></i>
+      RSS
+    </a>
+  </div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/scist-tw" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;scist-tw" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:official@scist.org" title="E-Mail → mailto:official@scist.org" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/scist.org" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;scist.org" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UC5lWl8evP-TYy9cldZs8zwA" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UC5lWl8evP-TYy9cldZs8zwA" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-TW" class="cc-opacity" rel="noopener" target="_blank"><img src="/blog/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
+        <div class="back-to-top animated">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner index posts-expand">
+      
+
+      
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://scist-tw.github.io/2021/02/24/%E8%AA%8D%E8%AD%982021%E6%96%B0%E5%85%A8%E7%90%83%E9%A6%96%E5%AF%8C%E4%BC%8A%E9%9A%86%C2%B7%E9%A6%AC%E6%96%AF%E5%85%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/SCIST_logo.png">
+      <meta itemprop="name" content="SCIST">
+      <meta itemprop="description" content="這是SCIST的學習資源整合網站，包含資安、演算法、程式語言、科普知識">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SCIST Blog">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/02/24/%E8%AA%8D%E8%AD%982021%E6%96%B0%E5%85%A8%E7%90%83%E9%A6%96%E5%AF%8C%E4%BC%8A%E9%9A%86%C2%B7%E9%A6%AC%E6%96%AF%E5%85%8B/" class="post-title-link" itemprop="url">2021 1月 科普好文 - 認識2021新全球首富伊隆·馬斯克</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-02-24 10:37:53" itemprop="dateCreated datePublished" datetime="2021-02-24T10:37:53+08:00">2021-02-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Scientific-knowledge/" itemprop="url" rel="index"><span itemprop="name">Scientific-knowledge</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <html>
+<head>
+    <title>認識2021新全球首富伊隆·馬斯克</title>
+    <style>
+    .moreinfo{background-color: #CCDDFF;}
+    .note{color:#003C9D;text-align:right;}
+    </style>
+</head>
+<body>
+<h1>認識2021新全球首富伊隆·馬斯克</h1>
+<h4>
+經常出現在各種新聞報導上，馬斯克這個名字絕對不讓人感到陌生，若你對馬斯克還不了解，本文將帶你認識這位在全球地位崇高的科技巨擘。
+<br><br>
+<div class="moreinfo">
+想快速認識馬斯克，可觀看影片<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=o-dv42aY9kw&t=149s">狂人馬斯克的故事：我為什麼創辦 PayPal, 特斯拉, SpaceX？</a>
+</div>
+</h4>
+<h2>從小自學編程</h2>
+<div class="getty embed image" style="background-color:#fff;display:inline-block;font-family:Roboto,sans-serif;color:#a7a7a7;font-size:11px;width:100%;max-width:509px;"><div style="padding:0;margin:0;text-align:left;"><a href="http://www.gettyimages.hk/detail/1128730921" target="_blank" style="color:#a7a7a7;text-decoration:none;font-weight:normal !important;border:none;display:inline-block;">Embed from Getty Images</a></div><div style="overflow:hidden;position:relative;height:0;padding:66.60118% 0 0 0;width:100%;"><iframe src="//embed.gettyimages.com/embed/1128730921?et=H7_k942-RsJ8n68p59Ee2A&tld=hk&sig=aVo_MzssSsUoulY1DlPNmADaA7yEhCyer9eJ8Su4CIw=&caption=true&ver=1" scrolling="no" frameborder="0" width="509" height="339" style="display:inline-block;position:absolute;top:0;left:0;width:100%;height:100%;margin:0;"></iframe></div></div>
+<h4 class="note">(圖為示意圖，非馬斯克本人)</h4>
+<h4>
+父親是一位電動機械工程師的馬斯克，小時候就沉迷於科幻小說，愛打遊戲的他對與電腦有關的事物很有興趣，遊戲使他想學習如何為電腦編程自行開發遊戲。在年僅10歲時有了人生中第一台電腦，自學編程直到12歲時，便以500美元出售了一款自寫的商業軟體。<br><br>
+然而，在大家眼中前途一片光明的馬斯克，卻和一般人一樣，在小時候都不知道自己未來要做什麼。直到他看到了以科幻小說聞名的作家<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E4%BA%9E%E7%91%9F%C2%B7%E6%9F%A5%E7%90%86%E6%96%AF%C2%B7%E5%85%8B%E6%8B%89%E5%85%8B">亞瑟·克拉克</a>的一句話，「最先進的科技看起來就像魔法」，激起馬斯克想發展最新科技的念頭。
+</h4>
+<h2>創辦三間公司PayPal，SpaceX，Tesla</h2>
+<h4>
+創業的最一開始，馬斯克和弟弟攜手創辦了一家軟件公司<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/Zip2">Zip2</a>，創辦資金主要由其父親資助，Zip2提供廣告商和使用者之間的互通平台，當時許多知名企業都成為Zip2的客戶。然而因合併問題，馬斯克最終被迫辭去董事長職位，Zip2也在創立4年後被<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%BA%B7%E6%9F%8F">康柏電腦</a>收購。
+</h4>
+<h3>PayPal</h3>
+<div class="getty embed image" style="background-color:#fff;display:inline-block;font-family:Roboto,sans-serif;color:#a7a7a7;font-size:11px;width:100%;max-width:507px;"><div style="padding:0;margin:0;text-align:left;"><a href="http://www.gettyimages.hk/detail/476464157" target="_blank" style="color:#a7a7a7;text-decoration:none;font-weight:normal !important;border:none;display:inline-block;">Embed from Getty Images</a></div><div style="overflow:hidden;position:relative;height:0;padding:66.66667% 0 0 0;width:100%;"><iframe src="//embed.gettyimages.com/embed/476464157?et=SKc4HCEoQ_JYrTt6fOQbNA&tld=hk&sig=7YHxBoydjTlR6iKY6bccyXyX2sVWQq2-t2OhZP6Ddz8=&caption=true&ver=1" scrolling="no" frameborder="0" width="507" height="338" style="display:inline-block;position:absolute;top:0;left:0;width:100%;height:100%;margin:0;"></iframe></div></div>
+<h4>
+賣掉Zip2後的馬斯克，利用人生中的第一桶金與他人共同創立了一家在線金融服務和電子支付業務公司<a target="_blank" rel="noopener" href="https://www.bnext.com.tw/article/45311/musk-became-x.com-new-owner">X.com</a>(連結為馬斯克買回域名的相關新聞)，與當時的競爭對手Paypal因服務項目與功能相近，導致兩者競爭激烈，之後由於競爭成本過高，兩公司經協商後決定合併為<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/PayPal">PayPal</a>，成為當時最大的支付平台。<br><br>
+雖然合併後的PayPal立刻融資了一億美元，然而兩公司的團隊在合作中有許多理念上的衝突，最後使原PayPal的CEO<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E5%BD%BC%E5%BE%97%C2%B7%E6%B3%B0%E7%88%BE">彼得·提爾</a>選擇離開PayPal，並由馬斯克接任CEO的職位。<br><br>
+然而其後公司內的衝突並不停歇，馬斯克的行為引發員工們的不滿，最後遭彈劾而正式辭去CEO的職位，PayPal再次由彼得·提爾帶領，而離開公司的馬斯克仍對PayPal貢獻許多心力。
+</h4>
+<h3>SpaceX</h3>
+<div class="getty embed image" style="background-color:#fff;display:inline-block;font-family:Roboto,sans-serif;color:#a7a7a7;font-size:11px;width:100%;max-width:594px;"><div style="padding:0;margin:0;text-align:left;"><a href="http://www.gettyimages.hk/detail/914642586" target="_blank" style="color:#a7a7a7;text-decoration:none;font-weight:normal !important;border:none;display:inline-block;">Embed from Getty Images</a></div><div style="overflow:hidden;position:relative;height:0;padding:66.66667% 0 0 0;width:100%;"><iframe src="//embed.gettyimages.com/embed/914642586?et=ya9eWONJQwFhY94MDgYQcQ&tld=hk&sig=DmnLn7cH4jEReAaymjmCikqdGg6fAZvHvHoHkgEnHIo=&caption=true&ver=1" scrolling="no" frameborder="0" width="594" height="396" style="display:inline-block;position:absolute;top:0;left:0;width:100%;height:100%;margin:0;"></iframe></div></div>
+<h4>
+馬斯克曾思考有那些問題可能對人類未來有重大的影響，最大的問題便是地球的永續發展，再來則是「將生命延續到地球以外的地方」，第二個想法便成為馬克斯創立<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/SpaceX">SpaceX</a>的基礎。<br><br>
+SpaceX是美國的民營航太製造商兼太空運輸公司，也是馬斯克成立的第三家公司，以降低太空運輸的成本為公司的理念。
+</h4>
+<h3>Tesla</h3>
+<div class="getty embed image" style="background-color:#fff;display:inline-block;font-family:Roboto,sans-serif;color:#a7a7a7;font-size:11px;width:100%;max-width:594px;"><div style="padding:0;margin:0;text-align:left;"><a href="http://www.gettyimages.hk/detail/1133038736" target="_blank" style="color:#a7a7a7;text-decoration:none;font-weight:normal !important;border:none;display:inline-block;">Embed from Getty Images</a></div><div style="overflow:hidden;position:relative;height:0;padding:71.21212% 0 0 0;width:100%;"><iframe src="//embed.gettyimages.com/embed/1133038736?et=s9cSobNNQ_FDD3rPwFHkyA&tld=hk&sig=JadEPzpV7znIGjoDD_UskgK-_JQ0u8auiHLANeG0QWc=&caption=true&ver=1" scrolling="no" frameborder="0" width="594" height="423" style="display:inline-block;position:absolute;top:0;left:0;width:100%;height:100%;margin:0;"></iframe></div></div>
+<h4>
+地球永續發展的問題，則成了建立<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%89%B9%E6%96%AF%E6%8B%89_(%E5%85%AC%E5%8F%B8)">Tesla(特斯拉)</a>的基礎，特斯拉是目前美國最大的電動汽車公司。<br>
+馬斯克在33歲時入股特斯拉，35歲時成立<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/SolarCity">SolarCity</a>(美國最大的太陽能發電公司)，10年後被特斯拉收購，正式納入特斯拉汽車旗下。<br><br>
+而馬斯克能在2021年僅一周的時間，超越亞馬遜CEO<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E6%9D%B0%E5%BC%97%E9%87%8C%C2%B7%E8%B4%9D%E7%B4%A2%E6%96%AF">貝佐斯</a>也是由特斯拉推波助瀾下成就的。<br><br>
+<div class="moreinfo">
+想知道更多馬斯克和貝佐斯的關係，可參見報導<a target="_blank" rel="noopener" href="https://www.bnext.com.tw/article/61154/spacex-starlink-amazon-satellite">地球首富們為宇宙而吵!馬斯克、貝佐斯爭奪衛星軌道，究竟太空商機有多大？</a>
+</div>
+</h4>
+<h3>Neuralink</h3>
+<h4>
+馬斯克45歲時創立了<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/Neuralink">Neuralink</a>，是一家美國神經科技和腦接口公司，曾於2020年8月展示其最新腦機接口技術，成功讀取實驗豬的大腦活動。<br><br>
+<div class="moreinfo">
+腦機接口技術的大略介紹可參見武陵資研的報導<a target="_blank" rel="noopener" href="https://www.instagram.com/p/CE6XLXSFwdx/?utm_source=ig_web_copy_link">Neuralink發表最新腦機接口技術！</a><br>
+或觀看相關推薦影片<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=e9BqtSzf2-A">《黑鏡》場景真的要來了嗎？人腦和電腦的結合！Neuralink發表會展示最新黑科技！| 啾啾鞋</a>
+</div>
+</h4>
+<h2>近期馬斯克的奇聞軼事</h2>
+<h3>狗狗幣愛好者</h3>
+<img src="https://pbs.twimg.com/media/EtXfpgGWYAEIa7y?format=jpg&name=small">
+<h4 class="note">(圖片取自馬斯克2021/2/4在Twitter上的推文)</h4>
+<h4>
+馬斯克再推特的推文影響力十足，近期發布了一張電影《獅子王》的合成圖(上圖)，馬斯克手上抱著狗狗幣標誌圖上的日本柴犬
+<br><br>
+<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E5%A4%9A%E5%90%89%E5%B8%81">多吉幣</a>(Dogcoin)，就是俗稱的狗狗幣，是一種類似比特幣的虛擬貨幣，創立於2013年，其目的並非用於投資，主要是用來給小費表達感謝之意。以其具娛樂性、價格低廉、流通性高，獲得小費文化盛行的美國人喜愛。
+<br><br>
+<div class="moreinfo">
+更多關於狗狗幣創立的報導請見<a target="_blank" rel="noopener" href="https://www.bnext.com.tw/article/47706/cryptocurrency-dogecoin-now-has-a-market-value-of-more-than-1-billion">無厘頭創立的「狗狗幣」，市值飆近20億美元，連創辦人都嚇一跳</a>
+</div>
+<br>
+</h4>
+<h3>語音社群平台Clubhouse</h3>
+<img src="https://upload.wikimedia.org/wikipedia/zh/4/4a/Clubhouse_icon.jpg">
+<h4 class="note">(圖片取自Clubhouse維基百科)</h4>
+<h4>
+地位崇高的馬斯克做什麼都會引人關注，最近馬斯克開始使用最近爆紅的語音社群平台<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Clubhouse">Clubhouse</a>，在平台中暢談自己的事業，房間立刻湧入大批聽眾，使得Clubhouse更為人所知。
+<br><br>
+<div class="moreinfo">
+想更認識Clubhouse可看推薦影片<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=sSf0M9RWiWQ">Clubhouse突然爆紅？只能用聲音的社群app有什麼吸引人的魔力？《 好奇七七探索日記 》EP019｜志祺七七</a>
+</div>
+</h4>
+<h3>馬斯克小孩的名字</h3>
+<img src="https://attach.setn.com/newsimages/2020/05/06/2539545-XXL.jpg">
+<h4 class="note">(圖片取自馬斯克推特)</h4>
+<h4>
+馬斯克總有異於常人的想法，其中，對自己的小孩也不例外。馬斯克在2020年5月月於Twitter上宣布小孩成功出生的消息，也宣布其孩子的名字為「X Æ A-12 Musk」，引起網友們熱烈討論。隨後馬斯克的老婆，加拿大歌手<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%A0%BC%E8%8E%B1%E5%A7%86%E6%96%AF">格萊姆斯</a>也在Twitter上說明小孩名字的涵義。
+<br><br>同樣特別的是，夫妻兩人表示他們不會對其孩子定下性別，一切都讓孩子在成長過程中自行定義。
+<br><br>
+<div class="moreinfo">
+好奇馬斯克夫婦小孩名字的涵義可參考報導<a target="_blank" rel="noopener" href="https://buzzorange.com/techorange/2020/05/06/x-ae-a-12-musk/">「X Æ A-12 Musk」：馬斯克剛誕生的小孩名字怎麼念？</a>
+</div>
+</h4>
+<h3>星鏈計畫</h3>
+<div class="getty embed image" style="background-color:#fff;display:inline-block;font-family:Roboto,sans-serif;color:#a7a7a7;font-size:11px;width:100%;max-width:594px;"><div style="padding:0;margin:0;text-align:left;"><a href="http://www.gettyimages.hk/detail/1211085521" target="_blank" style="color:#a7a7a7;text-decoration:none;font-weight:normal !important;border:none;display:inline-block;">Embed from Getty Images</a></div><div style="overflow:hidden;position:relative;height:0;padding:66.66667% 0 0 0;width:100%;"><iframe src="//embed.gettyimages.com/embed/1211085521?et=x2eB8xvMSLp5uHu5kLQNwg&tld=hk&sig=ezbCAvO8PFcmdhq-ARt0R6Tk1OX6cl4zUhS0gtvtjJE=&caption=true&ver=1" scrolling="no" frameborder="0" width="594" height="396" style="display:inline-block;position:absolute;top:0;left:0;width:100%;height:100%;margin:0;"></iframe></div></div>
+<h4>
+馬斯克在2015年以SpaceX執行長的身分宣布推出<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E6%98%9F%E9%93%BE">星鏈計畫</a>，以提供全球人民使用高速網際網路服務為目標，也希望可以開發出「全球衛星網路系統」，並將其應用在其他星球的環境上。
+<br><br>
+星鏈計畫仍在進行，且近期實行得如火如荼，網路上充滿了星鏈計畫的新聞，對此計畫有興趣的人可以多加關注相關消息!
+<br><br>
+<div class="moreinfo">
+更多有關星鏈計畫的介紹可參考報導<a target="_blank" rel="noopener" href="https://www.storm.mg/article/2890880?mode=whole">衛星和你想的不一樣：別再說星鏈計畫是6G了！</a>
+</div>
+</h4>
+<h2>結論</h2>
+<h4>
+看完上文對馬斯克的介紹後，有沒有增加你對這位科技巨擎的了解了呢?網路上馬斯克的相關新聞不可勝數，絕對能夠滿足你想更認識馬斯克的心!
+</h4>
+</body>
+</html>
+
+
+
+
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://scist-tw.github.io/2021/01/28/%E7%82%BA%E7%94%9A%E9%BA%BCflash%E8%A2%AB%E6%B7%98%E6%B1%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/SCIST_logo.png">
+      <meta itemprop="name" content="SCIST">
+      <meta itemprop="description" content="這是SCIST的學習資源整合網站，包含資安、演算法、程式語言、科普知識">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SCIST Blog">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/01/28/%E7%82%BA%E7%94%9A%E9%BA%BCflash%E8%A2%AB%E6%B7%98%E6%B1%B0/" class="post-title-link" itemprop="url">2021 1月 科普好文 - 為甚麼flash被淘汰</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-01-28 22:01:59" itemprop="dateCreated datePublished" datetime="2021-01-28T22:01:59+08:00">2021-01-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-02-24 10:37:53" itemprop="dateModified" datetime="2021-02-24T10:37:53+08:00">2021-02-24</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Scientific-knowledge/" itemprop="url" rel="index"><span itemprop="name">Scientific-knowledge</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="為甚麼flash被淘汰"><a href="#為甚麼flash被淘汰" class="headerlink" title="為甚麼flash被淘汰"></a>為甚麼flash被淘汰</h1><h2 id="Flash是甚麼"><a href="#Flash是甚麼" class="headerlink" title="Flash是甚麼"></a>Flash是甚麼</h2><ul>
+<li>是一種瀏覽器外掛程式。</li>
+<li>為Adobe公司旗下的軟體，Flash創作程式與網頁多媒體播放器均可稱為Flash。</li>
+<li>使用點陣圖和向量圖形技術，並以ActionScript指令碼語言進行編程製作。</li>
+</ul>
+<h2 id="Flash的功用"><a href="#Flash的功用" class="headerlink" title="Flash的功用"></a>Flash的功用</h2><h3 id="1-網頁多媒體撥放程式"><a href="#1-網頁多媒體撥放程式" class="headerlink" title="1. 網頁多媒體撥放程式"></a>1. 網頁多媒體撥放程式</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2021/01/28/%E7%82%BA%E7%94%9A%E9%BA%BCflash%E8%A2%AB%E6%B7%98%E6%B1%B0/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://scist-tw.github.io/2020/10/27/2020%20SCIST%20Web/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/SCIST_logo.png">
+      <meta itemprop="name" content="SCIST">
+      <meta itemprop="description" content="這是SCIST的學習資源整合網站，包含資安、演算法、程式語言、科普知識">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SCIST Blog">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/10/27/2020%20SCIST%20Web/" class="post-title-link" itemprop="url">2020/10/24 Web Security 基礎 題解</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-10-27 22:01:59" itemprop="dateCreated datePublished" datetime="2020-10-27T22:01:59+08:00">2020-10-27</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-02-24 10:37:53" itemprop="dateModified" datetime="2021-02-24T10:37:53+08:00">2021-02-24</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Web-Getting-Started"><a href="#Web-Getting-Started" class="headerlink" title="Web_Getting Started"></a>Web_Getting Started</h1><h2 id="Redirect"><a href="#Redirect" class="headerlink" title="Redirect"></a>Redirect</h2><p>點進去會有一個網站<br>有個連結按下去說可以看 flag<br>按下去會發現他跳轉一下<br>但什麼事情都沒發生</p>
+<p>所以我們用 curl 觀察一下</p>
+<p><img src="https://i.imgur.com/U2BdeJS.png"></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/10/27/2020%20SCIST%20Web/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+  
+  
+  
+
+
+  
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SCIST</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+      <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      const script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

